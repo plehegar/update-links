@@ -1,0 +1,22 @@
+{
+  "name": "update-links",
+  "version": "1.0.0",
+  "description": "Update links",
+  "main": "replace.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w3c/FileAPI.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w3c/FileAPI/issues"
+  },
+  "homepage": "https://github.com/w3c/FileAPI#readme",
+  "dependencies": {
+    "jsdom": "^11.4.0"
+  }
+}

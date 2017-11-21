@@ -1,0 +1,114 @@
+# Variables and regular expressions are read in document order
+# Catch all warning (starts with warn:) are applied after regular expressions
+
+#############################################################
+# Variables
+#
+# Syntax:
+# var:variable-name => output-text
+
+# (this variable mechanism is only meant to have a shorter map file)
+#
+# Make sure those are listed before regular expressions
+# output-text may contain variables
+
+# To use a variable, use $<variable-name>$
+
+var: W3C => https://www.w3.org/TR/
+var: HTML => $W3C$html52/
+
+var: WH => https://html.spec.whatwg.org/multipage/
+
+# catch all warnings are applied as-is
+
+#############################################################
+# Regular Expressions for specifications
+# regular expressions will get encapsulated later in quotes to catch href values
+#
+# Syntax:
+# input-expression => parameter-output-text
+
+# input-expression may contain a regular expression
+#  see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+# input-expression may contain variables
+
+# parameter-output-text may contain JS parameters
+#  see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
+# parameter-output-text may contain variables
+
+
+# Workers
+
+$WH$workers.html#dom-worker-postmessage => $W3C$workers/#dom-dedicatedworkerglobalscope-postmessage
+
+$WH$workers.html(#[-a-zA-Z0-9]+) => $W3C$workers/$1
+
+################
+# HTML
+
+# structured data
+$WH$structured-data.html#serializable => $HTML$infrastructure.html#extendedattrdef-serializable
+
+# webappapis
+
+$WH$webappapis.html#concept-settings-object-origin => $HTML$webappapis.html#security-origin
+$WH$webappapis.html#concept-task => $HTML$webappapis.html#tasks
+$WH$webappapis.html#eventhandler => $HTML$webappapis.html#typedefdef-eventhandler
+$WH$webappapis.html#event-handler-content-attributes => $HTML$webappapis.html#event-handler-content-event-handler-content-attribute
+$WH$webappapis.html#queue-a-task => $HTML$webappapis.html#queuing
+
+# origin
+
+$WH$origin.html#ascii-serialisation-of-an-origin => $HTML$browsers.html#ascii-serialization-of-an-origin
+
+# browsers
+
+$WH$#origin => $HTML$browsers.html#section-origin
+$WH$browsing-the-web.html#unloading-document-cleanup-steps => $HTML$browsers.html#unloading-document-cleanup-steps
+
+# semantics
+
+$WH$semantics.html#attr-hyperlink-download => $HTML$links.html#element-attrdef-a-download
+
+# this takes care of remaining fragments in known files
+$WH$structured-data.html(#[-a-zA-Z0-9]+) => $HTML$infrastructure.html$1
+$WH$webappapis.html(#[-a-zA-Z0-9]+) => $HTML$webappapis.html$1
+$WH$dnd.html(#[-a-zA-Z0-9]+) => $HTML$editing.html$1
+$WH$window-object.html(#[-a-zA-Z0-9]+) => $HTML$browsers.html$1
+$WH$text-level-semantics.html(#[-a-zA-Z0-9]+) => $HTML$textlevel-semantics.html$1
+$WH$input.html(#[-a-zA-Z0-9]+) => $HTML$sec-forms.html$1
+$WH$embedded-content.html(#[-a-zA-Z0-9]+) => $HTML$semantics-embedded-content.html$1
+$WH$iframe-embed-object.html(#[-a-zA-Z0-9]+) => $HTML$semantics-embedded-content.html$1
+$WH$origin.html(#[-a-zA-Z0-9]+) => $HTML$browsers.html$1
+
+# this takes care of remaining fragments in unknown files
+$WH$[-a-zA-Z]+\.html(#[-a-zA-Z0-9]+) => $HTML$single-page.html$1
+
+
+################
+# Map directly spec to spec
+
+map: dom, https://dom.spec.whatwg.org/ => https://www.w3.org/TR/dom41/
+
+map: webidl, https://heycam.github.io/webidl/ => https://www.w3.org/TR/WebIDL-1/
+
+map: encoding, https://encoding.spec.whatwg.org/ => https://www.w3.org/TR/encoding/
+
+#############################################################
+# References
+# as it appears in brackets and using specref.org
+
+ref: HTML => HTML52
+ref: DOM => DOM41
+ref: Encoding => encoding-20161215
+ref: WebIDL => WebIDL-1
+
+#############################################################
+# Catch all for warnings
+#
+# Syntax:
+# warn:input-expression
+
+warn:https://html.spec.whatwg.org/[-/a-zA-Z#]*
+warn:https://w3c.github.io/[-/a-zA-Z#]*
+warn:https://drafts.csswg.org/[-/a-zA-Z#]*
