@@ -1,2 +1,3 @@
 Usage:
- node index.js <inputfile> <outputfile>
+ npm update
+ node index.js inputfile outputfile
